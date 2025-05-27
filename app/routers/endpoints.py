@@ -8,7 +8,7 @@ router = APIRouter()
 @router.get("/hello")
 def hello():
     return JSONResponse({
-        "response": "Hello, world cicd github!"
+        "response": "Hello, world cicd github-0527!"
     })
 
 @router.get("/upload")
