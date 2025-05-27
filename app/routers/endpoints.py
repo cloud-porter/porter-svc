@@ -1,6 +1,6 @@
+from config import settings
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
-from config import settings
 from services.s3_service import S3Service
 
 router = APIRouter()
@@ -8,7 +8,7 @@ router = APIRouter()
 @router.get("/hello")
 def hello():
     return JSONResponse({
-        "response": "Hello, world cicd0526!"
+        "response": "Hello, world cicd github!"
     })
 
 @router.get("/upload")
