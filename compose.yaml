@@ -1,0 +1,29 @@
+services:
+  pgvector:
+    container_name: pgvector
+    image: timescale/timescaledb-ha:pg17
+    environment:
+      POSTGRES_DB: porter
+      POSTGRES_USER: porter
+      POSTGRES_PASSWORD: superstrongpassword
+    ports:
+      - 5432:5432
+    volumes:
+      - pgvector:/var/lib/postgresql/data
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    container_name: filebrowser
+    restart: unless-stopped
+    ports:
+      - "8095:80"
+    volumes:
+      - ...:/srv
+      - .../filebrowser.db:/database.db
+      - .../settings.json:/etc/filebrowser/settings.json
+    environment:
+      - PUID=$(id -u)
+      - PGID=$(id -g)
+      - TZ=Asia/Taipei
+
+volumes:
+  pgvector:
