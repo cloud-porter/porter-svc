@@ -1,5 +1,6 @@
+import boto3
 from config import settings
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
 from services.s3_service import S3Service
 
@@ -25,6 +26,19 @@ def upload_file():
         "response": "File uploaded successfully!"
     })
 
+
+@router.get("/generate-presigned-url/")
+def generate_presigned_url(file_name: str, file_type: str):
+    s3_client = boto3.client('s3')
+    try:
+        response = s3_client.generate_presigned_url('put_object',
+                                                    Params={'Bucket': 'porter-bucket-01',
+                                                            'Key': file_name,
+                                                            'ContentType': file_type},
+                                                    ExpiresIn=3600)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    return {"url": response}
 
 
 @router.get("/health")
