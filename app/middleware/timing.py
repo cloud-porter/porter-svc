@@ -1,6 +1,6 @@
 from time import time
 from fastapi import Request
-from utils.logger import logger
+from ..utils.logger import logger
 
 async def get_request_duration(request: Request, call_next):
     start_time = time()

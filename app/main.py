@@ -1,11 +1,11 @@
 from fastapi import FastAPI
-from config import Settings
+from .config import settings
 from dotenv import load_dotenv
-from middleware import get_request_duration
-from routers import router as api_router
+from .middleware.timing import get_request_duration
+from .routers.endpoints import router as api_router
 from fastapi.middleware.cors import CORSMiddleware
 
-load_dotenv(Settings.Config.env_file)
+load_dotenv(".env")
 
 app = FastAPI(
     title="Porter",
